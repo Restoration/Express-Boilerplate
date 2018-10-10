@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
 
 var app = express();
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,7 +41,24 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+// Use passport
+var passport = require('passport');
+app.use(passport.initialize());
 
+// Use certification strategy
+var LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(function(username, password, done){
+    // return user account and password information
+    /*
+    if(){
+        return done();
+    }else i (){
+        return done(null, false);
+    }else if(){
+        return done(null, username);
+    }
+    */
+}));
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
