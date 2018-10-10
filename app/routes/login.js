@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var path = require('path');
-console.log(__dirname);
-/* GET users listing. */
+
+/* GET login listing. */
 router.get('/', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });

@@ -4,18 +4,22 @@ block content
     h1= title
     p Welcome to #{title}
     main#main
-        p
-            input(
-                type="text"
-                placeholder="Username"
-            )
-        p
-            input(
-                type="text"
-                placeholder="Password"
-            )
-        p
-            input(
-                type="submit"
-                value="Send"
-            )
+        form(
+            method='POST'
+            action='/login'
+        )
+            p
+                input(
+                    type="text"
+                    placeholder="Username"
+                )
+            p
+                input(
+                    type="text"
+                    placeholder="Password"
+                )
+            p
+                input(
+                    type="submit"
+                    value="Send"
+                )
