@@ -3,6 +3,7 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
+    p #{user_name}
     main#main
         form(
             method='POST'
@@ -11,11 +12,13 @@ block content
             p
                 input(
                     type="text"
+                    name="username"
                     placeholder="Username"
                 )
             p
                 input(
                     type="text"
+                    name="password"
                     placeholder="Password"
                 )
             p
