@@ -35,6 +35,15 @@ app.use(flash());
 app.use(session({ resave:false,saveUninitialized:false, secret: 'keyboar cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Check authenticated
+function isAuthenticated(req, res, next){
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.redirect('/login');
+    }
+}
 //----------------------------------------------------------------------
 
 app.use('/', indexRouter);
