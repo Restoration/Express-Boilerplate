@@ -14,6 +14,7 @@ var session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 
 var app = express();
 
@@ -49,6 +50,7 @@ function isAuthenticated(req, res, next){
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -66,6 +68,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
+
+
+module.exports = app;
