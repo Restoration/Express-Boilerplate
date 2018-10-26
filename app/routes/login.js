@@ -84,15 +84,11 @@ router.post('/',
         session: true
     }),
     function(req, res, next){
+        console.log(req);
+        req.session.user = {name: req.body.username};
         res.render('login', { title: 'Login', user_name:req.user && req.user.name || ""  });
     }
 );
-
-router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/login');
-});
-
 
 
 module.exports = router;

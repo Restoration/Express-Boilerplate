@@ -45,12 +45,18 @@ function isAuthenticated(req, res, next){
         res.redirect('/login');
     }
 }
+var sessionCheck = function(req, res, next) {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+};
 //----------------------------------------------------------------------
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/',sessionCheck,indexRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
