@@ -4,6 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// DatabaseClass
+var Database = require('./classes/Database');
+var db = new Database();
+db.connect();
+
 // Add package
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
