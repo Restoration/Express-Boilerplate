@@ -8,6 +8,7 @@ var logger = require('morgan');
 var Database = require('./classes/Database');
 var db = new Database();
 db.connect();
+db.getData();
 
 // Add package
 var passport = require('passport');
