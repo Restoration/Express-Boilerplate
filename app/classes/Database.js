@@ -21,5 +21,18 @@ class Database{
             });
         });
     }
+    insertData(){
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("exampleDB");
+            var obj = {id: 1,  name: "Test" };
+            dbo.collection("test").insertOne(obj, function(err, res) {
+                if (err) throw err;
+                console.log("1 document inserted");
+                db.close();
+            });
+        });
+    }
+
 }
 module.exports = Database;

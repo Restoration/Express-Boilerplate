@@ -9,6 +9,7 @@ var Database = require('./classes/Database');
 var db = new Database();
 db.connect();
 db.getData();
+db.insertData();
 
 // Add package
 var passport = require('passport');
