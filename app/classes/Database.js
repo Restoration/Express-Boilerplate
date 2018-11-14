@@ -33,6 +33,17 @@ class Database{
             });
         });
     }
-
+    deleteData(){
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("exampleDB");
+            var myquery = { id: '1' };
+            dbo.collection("test").deleteOne(myquery, function(err, obj) {
+                if (err) throw err;
+                console.log("1 document deleted");
+                db.close();
+            });
+        });
+    }
 }
 module.exports = Database;
