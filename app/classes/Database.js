@@ -33,6 +33,20 @@ class Database{
             });
         });
     }
+    updateData(){
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("exampleDB");
+            var myquery = { name: "Test" };
+            var newvalues = { $set: {name: "Example" } };
+            dbo.collection("test").updateOne(myquery, newvalues, function(err, res) {
+                if (err) throw err;
+                console.log("1 document updated");
+                db.close();
+            });
+        });
+    }
+
     deleteData(){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;

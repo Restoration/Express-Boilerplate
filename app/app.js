@@ -10,7 +10,9 @@ var db = new Database();
 db.connect();
 db.getData();
 db.insertData();
+db.updateData();
 db.deleteData();
+
 
 // Add package
 var passport = require('passport');
