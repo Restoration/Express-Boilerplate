@@ -4,6 +4,25 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// DatabaseClass
+/*
+var Database = require('./classes/Database');
+var db = new Database();
+var table = "test";
+db.connect();
+
+db.getData(table);
+var obj = { id: '1' , name: "Test" };
+db.insertData(table,obj);
+
+var myQuery = { name: "Test" };
+var newValues = { $set: {name: "Example" } };
+db.updateData(table,myQuery,newValues);
+
+var myQuery = { id: '1' };
+db.deleteData(table,myQuery);
+*/
+
 // Add package
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
