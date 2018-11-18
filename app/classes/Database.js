@@ -1,7 +1,16 @@
 var mongo = require('mongodb');
 var MongoClient = mongo.MongoClient;
 var url = "mongodb://localhost:27017/exampleDB";
+var DataBase = "exampleDB";
 class Database{
+    constructor() {
+        this.url = "mongodb://localhost:27017/exampleDB";
+        this.DataBase = "exampleDB";
+    }
+    /**
+    * Connect to MongoDB
+    *
+    */
     connect(){
         // Connect to the db
         MongoClient.connect(url, function(err, db) {
@@ -10,51 +19,74 @@ class Database{
             }
         });
     }
-    getData(){
+    /**
+    * Get data from MongoDB
+    *
+    * @param String table
+    * @return Object res
+    */
+    getData(table){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("exampleDB");
-            dbo.collection("test").findOne({}, function(err, result) {
+            var dbo = db.db(DataBase);
+            dbo.collection(table).findOne({}, function(err, res) {
                 if (err) throw err;
-                console.log(result);
+                return res;
                 db.close();
             });
         });
     }
-    insertData(){
+    /**
+    * Insert data to MongoDB
+    *
+    * @param String table
+    * @param Object obj
+    * @return Object res
+    */
+    insertData(table,obj){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("exampleDB");
-            var obj = {id: 1,  name: "Test" };
-            dbo.collection("test").insertOne(obj, function(err, res) {
+            var dbo = db.db(DataBase);
+            dbo.collection(table).insertOne(obj, function(err, res) {
                 if (err) throw err;
-                console.log("1 document inserted");
+                return res;
                 db.close();
             });
         });
     }
-    updateData(){
+    /**
+    * Update data
+    *
+    * @param String table
+    * @param Object query
+    * @param Object values
+    * @return Object res
+    */
+    updateData(table,query,values){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("exampleDB");
-            var myquery = { name: "Test" };
-            var newvalues = { $set: {name: "Example" } };
-            dbo.collection("test").updateOne(myquery, newvalues, function(err, res) {
+            var dbo = db.db(DataBase);
+            dbo.collection(table).updateOne(query, values, function(err, res) {
                 if (err) throw err;
-                console.log("1 document updated");
+                return res;
                 db.close();
             });
         });
     }
-
-    deleteData(){
+    /**
+    * Delete data from table
+    *
+    * @param String table
+    * @param Object query
+    * @return Object obj
+    */
+    deleteData(table,query){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("exampleDB");
-            var myquery = { id: '1' };
-            dbo.collection("test").deleteOne(myquery, function(err, obj) {
+            var dbo = db.db(DataBase);
+            dbo.collection(table).deleteOne(query, function(err, obj) {
                 if (err) throw err;
-                console.log("1 document deleted");
+                return obj;
                 db.close();
             });
         });
