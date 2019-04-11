@@ -1,5 +1,12 @@
 version: '3'
 services:
+  database:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    expose:
+       - "27017"
   nodejs:
     build:
       context: .
@@ -9,5 +16,8 @@ services:
     container_name: node
     ports:
       - "5000:5000"
+    links:
+      - database
     volumes:
       - .:/home/node/app
+
