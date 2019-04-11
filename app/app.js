@@ -38,6 +38,8 @@ var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 
 var app = express();
+var helmet = require('helmet')
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
