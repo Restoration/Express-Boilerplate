@@ -1,5 +1,19 @@
-# Node.js
-My node.js knowledges.  
+# Express BoilerPlate
+
+## Install
+
+### Use Docker
+```
+$ cd app
+$ sh setup.sh
+```
+
+### Use your directory
+```
+$ cd app
+$ npm i
+$ node app.js
+```
 
 ## Functions
 - Login
@@ -12,4 +26,4 @@ My node.js knowledges.
 
 
 ## Author  
-[Ryota Yamamoto](http://developer-ryota.com)  
+[Ryota Yamamoto](http://www.developer-ryota.com) 
