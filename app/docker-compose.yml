@@ -8,6 +8,6 @@ services:
     user: "node"
     container_name: node
     ports:
-      - "3000"
+      - "5000:5000"
     volumes:
       - .:/home/node/app
