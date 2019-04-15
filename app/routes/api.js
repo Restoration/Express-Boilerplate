@@ -48,9 +48,8 @@ function verifyToken(req, res, next){
     } else {
         // Forbidden
         res.sendStatus(403);
+        res.render('error');
     }
 }
-
-
 
 module.exports = router;

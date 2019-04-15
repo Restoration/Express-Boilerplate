@@ -45,6 +45,7 @@ app.use(helmet());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('view options', { layout:'layout.ejs' });
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -57,7 +58,6 @@ app.use(expressLayouts);
 //----------------------------------------------------------------------
 // It needs process before routing define
 // Passport needs flash and session package
-/*
 app.use(flash());
 app.use(session({ resave:false,saveUninitialized:false, secret: 'keyboar cat' }));
 app.use(passport.initialize());
@@ -78,15 +78,13 @@ var sessionCheck = function(req, res, next) {
         res.redirect('/login');
     }
 };
-*/
 //----------------------------------------------------------------------
-/*
+// Execute the session check
+//app.use('/',sessionCheck,indexRouter);
+app.use('/',indexRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/',sessionCheck,indexRouter);
 app.use('/users', usersRouter);
-*/
-
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
@@ -105,7 +103,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(5000, () => console.log('Example app listening on port 5000!'))
 
 
