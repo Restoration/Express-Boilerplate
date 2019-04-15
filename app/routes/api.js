@@ -26,7 +26,7 @@ router.post('/register', (req, res) => {
         email : req.body.email,
         password : hashedPassword
     }
-    // Call Database class register method
+    // Call jwt.sign api after register something funcion
     DB.register(userObj,(err, user) => {
         if (err){
             res.sendStatus(500);
@@ -48,10 +48,12 @@ router.post('/login', (req, res) => {
         email: 'test@example.com',
         password: '',
     }
+    // Check password
     let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
     if (!passwordIsValid){
         res.sendStatus(403);
     }
+    // Get the token
     jwt.sign({user},'secretkey', { expiresIn: 86400 }, (err, token) => {
         res.json({
             token
