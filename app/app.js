@@ -36,6 +36,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
+var apiRouter = require('./routes/api');
 
 var app = express();
 var helmet = require('helmet')
@@ -56,6 +57,7 @@ app.use(expressLayouts);
 //----------------------------------------------------------------------
 // It needs process before routing define
 // Passport needs flash and session package
+/*
 app.use(flash());
 app.use(session({ resave:false,saveUninitialized:false, secret: 'keyboar cat' }));
 app.use(passport.initialize());
@@ -76,11 +78,16 @@ var sessionCheck = function(req, res, next) {
         res.redirect('/login');
     }
 };
+*/
 //----------------------------------------------------------------------
+/*
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/',sessionCheck,indexRouter);
 app.use('/users', usersRouter);
+*/
+
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
