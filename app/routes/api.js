@@ -35,6 +35,7 @@ router.post('/register', (req, res) => {
                 res.sendStatus(500);
             }
         });
+        storeTokenLS(token);
         res.json({
             token
         });
@@ -56,6 +57,7 @@ router.post('/login', (req, res) => {
     }
     // Get the token
     jwt.sign({user},'secretkey', { expiresIn: 86400 }, (err, token) => {
+        storeTokenLS(token);
         res.json({
             token
         });
@@ -73,6 +75,14 @@ function verifyToken(req, res, next){
         res.sendStatus(403);
         res.render('error');
     }
+}
+// Store token to local storage
+function storeTokenLS(token){
+    if (typeof localStorage === "undefined" || localStorage === null) {
+        let LocalStorage = require('node-localstorage').LocalStorage;
+        localStorage = new LocalStorage('./scratch');
+    }
+    localStorage.setItem('token', token);
 }
 
 module.exports = router;
