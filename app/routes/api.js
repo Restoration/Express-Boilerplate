@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -20,22 +21,22 @@ router.post('/create',verifyToken, (req, res) => {
 
 
 router.post('/register', (req, res) => {
-    let hashedPassword = bcrypt.hashSync(req.body.password, 8);
-    userObj = {
-        name : req.body.name,
-        email : req.body.email,
-        password : hashedPassword
-    }
-    // Call jwt.sign api after register something funcion
-    DB.register(userObj,(err, user) => {
-        if (err){
-            res.sendStatus(500);
+    // 86400 = 24h
+    jwt.sign({req.body},'secretkey', { expiresIn: 86400 }, (err, token) => {
+        let hashedPassword = bcrypt.hashSync(req.body.password, 8);
+        userObj = {
+            name : req.body.name,
+            email : req.body.email,
+            password : hashedPassword
+            token : token,
         }
-        // 86400 = 24h
-        jwt.sign({user},'secretkey', { expiresIn: 86400 }, (err, token) => {
-            res.json({
-                token
-            });
+        DB.register(userObj,(err, user) => {
+            if (err){
+                res.sendStatus(500);
+            }
+        });
+        res.json({
+            token
         });
     });
 });
