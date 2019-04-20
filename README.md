@@ -18,12 +18,14 @@ $ node app.js
 ## Functions
 - Login
 - CRUD
+- JWT Auth
 
 ## Requirement
 - express.js
 - passport
 - mongoDB
+- Json Web Token
 
 
 ## Author  
-[Ryota Yamamoto](http://www.developer-ryota.com) 
+[RyotArch](https://www.developer-ryota.com) 
