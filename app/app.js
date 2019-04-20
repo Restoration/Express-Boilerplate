@@ -36,12 +36,16 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
+var apiRouter = require('./routes/api');
 
 var app = express();
+var helmet = require('helmet')
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('view options', { layout:'layout.ejs' });
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -75,10 +79,13 @@ var sessionCheck = function(req, res, next) {
     }
 };
 //----------------------------------------------------------------------
+// Execute the session check
+//app.use('/',sessionCheck,indexRouter);
+app.use('/',indexRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/',sessionCheck,indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -96,7 +103,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(5000, () => console.log('Example app listening on port 5000!'))
 
 
