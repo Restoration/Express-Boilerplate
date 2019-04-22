@@ -1,99 +1,37 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var  expressLayouts = require('express-ejs-layouts');
+const express = require('express');
+const createError = require('http-errors');
+const helmet = require('helmet')
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const expressLayouts = require('express-ejs-layouts');
+const PORT = 5000;
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 
-
-// DatabaseClass
-/*
-var Database = require('./classes/Database');
-var db = new Database();
-var table = "test";
-db.connect();
-
-db.getData(table);
-var obj = { id: '1' , name: "Test" };
-db.insertData(table,obj);
-
-var myQuery = { name: "Test" };
-var newValues = { $set: {name: "Example" } };
-db.updateData(table,myQuery,newValues);
-
-var myQuery = { id: '1' };
-db.deleteData(table,myQuery);
-*/
-
-// Add package
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var flash = require('connect-flash');
-var session = require('express-session');
-
-// Routing
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var logoutRouter = require('./routes/logout');
-var apiRouter = require('./routes/api');
-
-var app = express();
-var helmet = require('helmet')
+const app = express();
 app.use(helmet());
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('view options', { layout:'layout.ejs' });
 
 app.use(logger('dev'));
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressLayouts);
 
-// Passport
-//----------------------------------------------------------------------
-// It needs process before routing define
-// Passport needs flash and session package
-app.use(flash());
-app.use(session({ resave:false,saveUninitialized:false, secret: 'keyboar cat' }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Check authenticated
-function isAuthenticated(req, res, next){
-    if (req.isAuthenticated()) {
-        return next();
-    } else {
-        res.redirect('/login');
-    }
-}
-var sessionCheck = function(req, res, next) {
-    if (req.session.user) {
-        next();
-    } else {
-        res.redirect('/login');
-    }
-};
-//----------------------------------------------------------------------
-// Execute the session check
-//app.use('/',sessionCheck,indexRouter);
 app.use('/',indexRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
-app.use('/users', usersRouter);
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -103,7 +41,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(5000, () => console.log('Example app listening on port 5000!'))
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
 
 
 module.exports = app;
