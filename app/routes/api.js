@@ -1,10 +1,80 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+const {verifyToken} = require('../middlewares/verifyToken');
+const {verifyUser} = require('../utils/utility');
 
+/*
+ * Endpoint for Read
+ *
+ * You can get JSON Web Token in this endpoint
+ *
+ * expires time is 86400(24h)
+ */
 router.get('/', (req, res) => {
-    res.json({ message: 'Hello Express Boilerplate API' });
+
+  // Mock user
+  const user = {
+    id: 1,
+    username: 'test',
+    password: 'test',
+    email: 'test@example.com'
+  }
+
+  jwt.sign({user},'secretkey', {expiresIn:86400},(err, token) => {
+    res.json({
+      'message': 'Wellcome to API endpoint',
+      'token': token
+    });
+  });
 });
+
+/*
+ * Endpoint for Create
+ *
+ *
+ */
+router.post('/create',verifyToken, (req, res) => {
+  const result = verifyUser(req);
+  if(result.sucess){
+    res.json(result);
+  } else {
+    // Error Handling
+    res.json(result);
+  }
+});
+
+
+/*
+ * Endpoint for Update
+ *
+ *
+ */
+router.put('/update',verifyToken, (req, res) => {
+  const result = verifyUser(req);
+  if(result.sucess){
+    res.json(result);
+  } else {
+    // Error Handling
+    res.json(result);
+  }
+});
+
+/*
+ * Endpoint for Delete
+ *
+ *
+ */
+router.delete('/delete',verifyToken, (req, res) => {
+  const result = verifyUser(req);
+  if(result.sucess){
+    res.json(result);
+  } else {
+    // Error Handling
+    res.json(result);
+  }
+});
+
 router.post('/create',verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) =>{
         if(err){
@@ -17,52 +87,5 @@ router.post('/create',verifyToken, (req, res) => {
         }
     });
 });
-
-router.post('/login', (req, res) => {
-    // Mock user
-    const user = {
-        id: 1,
-        username: 'test',
-        email: 'test@example.com',
-        password: '',
-    }
-    // Get the token
-    jwt.sign({user},'secretkey', { expiresIn: 86400 }, (err, token) => {
-        storeTokenLS(token);
-        res.json({
-            token
-        });
-    });
-});
-
-router.get('/logout', (req, res) => {
-    deleteTokenLS();
-});
-
-
-// Verify Token
-function verifyToken(req, res, next){
-    const bearerHeader = req.headers['authorization'];
-    if(bearerHeader !== 'undefined'){
-        req.token = bearerHeader;
-        next();
-    } else {
-        // Forbidden
-        res.sendStatus(403);
-        res.render('error');
-    }
-}
-// Store token to local storage
-function storeTokenLS(token){
-    if (typeof localStorage === "undefined" || localStorage === null) {
-        let LocalStorage = require('node-localstorage').LocalStorage;
-        localStorage = new LocalStorage('./scratch');
-    }
-    localStorage.setItem('token', token);
-}
-// Delete token to local storage
-function deleteTokenLS(){
-    localStorage.removeItem('token');
-}
 
 module.exports = router;
