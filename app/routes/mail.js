@@ -1,39 +1,37 @@
 const express = require('express');
 const router = express.Router();
-const nodemailer = require("nodemailer");
+const { main } = require("../utils/mail");
+const { checkName, checkEmail, checkMessage } = require('../utils/validation');
+const { isEmpty } = require('../utils/utility');
 
 /* GET home page. */
 router.post('/send', async (req, res) => {
+  /*
+  let isName = checkName(req.body.name);
+  let isEmail = checkEmail(req.body.email);
+  let isMessage = checkMessage(req.body.message);
+  */
+  let isName = checkName('hogehoge');
+  let isEmail = checkEmail('example@aaa.aaa');
+  let isMessage = checkMessage('foo');
+
+  if(!isEmpty(isName)){
+    return res.json(isName);
+  }
+  if(!isEmpty(isEmail)){
+    return res.json(isEmail);
+  }
+  if(!isEmpty(isMessage)){
+    return res.json(isMessage);
+  }
   main().catch(console.error);
-  res.json({
-    'message': 'Wellcome to API endpoint',
+  return res.json({
+    'message': 'Sucess to send a message',
   });
 });
 
 
-async function main(){
-  let testAccount = await nodemailer.createTestAccount();
-  let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: testAccount.user, // generated ethereal user
-      pass: testAccount.pass // generated ethereal password
-    }
-  });
 
-  let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "bar@example.com, baz@example.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>" // html body
-  });
-
-  console.log("Message sent: %s", info.messageId);
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-}
 
 
 
