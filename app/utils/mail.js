@@ -1,7 +1,15 @@
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
-async function main(){
+
+/*
+ * Mail sender function
+ *
+ * @param : Object sendObj
+ * @return Boolean
+ *
+  * */
+async function send(param){
   let testAccount = await nodemailer.createTestAccount();
   let transporter = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
@@ -14,16 +22,15 @@ async function main(){
   });
 
   let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: process.env.MAIL_TO, // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>" // html body
+    from: param.email,
+    to: process.env.MAIL_TO,
+    subject: process.env.MAIL_SUBJECT,
+    text: process.env.message,
+    //html: "<b>Hello world?</b>"
   });
-
   console.log("Message sent: %s", info.messageId);
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }
 
 
-module.exports = {main}
+module.exports = { send }

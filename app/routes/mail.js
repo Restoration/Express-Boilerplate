@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { main } = require("../utils/mail");
+const { send } = require("../utils/mail");
 const { checkName, checkEmail, checkMessage } = require('../utils/validation');
 const { isEmpty } = require('../utils/utility');
 
@@ -24,7 +24,8 @@ router.post('/send', async (req, res) => {
   if(!isEmpty(isMessage)){
     return res.json(isMessage);
   }
-  main().catch(console.error);
+
+  send(req.body).catch(console.error);
   return res.json({
     'message': 'Sucess to send a message',
   });
