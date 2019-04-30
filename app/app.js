@@ -8,6 +8,7 @@ const expressLayouts = require('express-ejs-layouts');
 const PORT = 5000;
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
+const mailRouter = require('./routes/mail');
 
 const app = express();
 app.use(helmet());
@@ -24,6 +25,7 @@ app.use(expressLayouts);
 
 app.use('/',indexRouter);
 app.use('/api', apiRouter);
+app.use('/mail', mailRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

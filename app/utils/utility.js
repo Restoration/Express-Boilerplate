@@ -41,4 +41,8 @@ const deleteTokenLS = function(){
     localStorage.removeItem('token');
 }
 
-module.exports = {verifyUser,storeTokenLS,deleteTokenLS}
+function isEmpty(obj){
+  return !Object.keys(obj).length;
+}
+
+module.exports = {verifyUser,storeTokenLS,deleteTokenLS, isEmpty}

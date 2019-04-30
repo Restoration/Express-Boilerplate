@@ -3,6 +3,10 @@
 A Boilerplate for Express.js. It has basicly endpoint to CRUD and authentication with JSON Web Token.
 You can implement RESTful API to easy.
 
+- RESTful API
+- Mailer
+- Auth
+
 ## Install
 
 ### Use Docker
