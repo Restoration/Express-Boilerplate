@@ -13,6 +13,8 @@
     "ejs": "~2.5.7",
     "express": "^4.16.4",
     "express-ejs-layouts": "^2.5.0",
+    "express-graphql": "^0.8.0",
+    "graphql": "^14.2.1",
     "helmet": "^3.16.0",
     "http-errors": "~1.6.2",
     "jsonwebtoken": "^8.5.1",
