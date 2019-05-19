@@ -6,6 +6,7 @@ You can implement RESTful API to easy.
 - RESTful API
 - Mailer
 - Auth
+- GraphQL
 
 ## Install
 Setting for .env
@@ -28,7 +29,8 @@ $ node app.js
 ```
 
 You already install, please access to `http://localhost:5000` or `http://localhost:5000/api` on your browser then, if you wanna api request, use developer tool.
-In my opnion, I'll recommend using [postman](https://www.getpostman.com/).
+In my opnion, I'll recommend using [postman](https://www.getpostman.com/).  
+In addition, it has GraphQL endpoint, you can access playground at `http://localhost:5000/graphql`.
 
 ## Requirement
 Docker or Node.js
