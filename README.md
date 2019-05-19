@@ -8,6 +8,11 @@ You can implement RESTful API to easy.
 - Auth
 
 ## Install
+Setting for .env
+```
+$ cd app
+$ cp .env.sample .env
+```
 
 ### Use Docker
 ```
