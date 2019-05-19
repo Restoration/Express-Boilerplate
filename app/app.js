@@ -1,6 +1,8 @@
 const express = require('express');
 const createError = require('http-errors');
 const helmet = require('helmet')
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -26,6 +28,28 @@ app.use(expressLayouts);
 app.use('/',indexRouter);
 app.use('/api', apiRouter);
 app.use('/mail', mailRouter);
+
+
+// Building for GraphQL
+//-------------------------------------------------------------------------
+// Construct a schema, using GraphQL schema language
+const schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`);
+const root = {
+  hello: () => {
+    return 'Hello world!';
+  },
+};
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true,
+}));
+
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
