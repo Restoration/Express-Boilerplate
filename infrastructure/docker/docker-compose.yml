@@ -1,0 +1,51 @@
+version: '3'
+services:
+  app:
+    container_name: express_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../../:/app
+    image: "node:10.15.2-alpine"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - psql
+      - redis
+      - mongo
+  psql:
+    image: postgres:12.3
+    container_name: express_mysql
+    volumes:
+        # 永続化するときにマウントするdir
+        - ../postgresql/data:/var/lib/pgsql
+    ports:
+      - 5433:5432
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8'
+  redis:
+    image: "redis:latest"
+    container_name: express_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass password
+    volumes:
+      - "../redis:/data"
+  mongo:
+    container_name: express_mongo
+    image: mongo:4.2.0
+    ports:
+      - "27018:27017"
+    volumes:
+      - ../mongo/db:/data/db
+      - ../mongo/configdb:/data/configdb
+      - ../mongo/init:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: root
+      TZ: Asia/Tokyo
