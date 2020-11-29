@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const jwt = require('jsonwebtoken');
-const {verifyToken} = require('../middlewares/verifyToken');
-const {verifyUser} = require('../utils/utility');
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import { verifyToken } from '../middlewares/verifyToken';
+import { verifyUser } from '../utils/utility';
 
+const router = express.Router();
 /*
  * Endpoint for Read
  *
@@ -12,19 +12,18 @@ const {verifyUser} = require('../utils/utility');
  * expires time is 86400(24h)
  */
 router.get('/', (req, res) => {
-
   // Mock user
   const user = {
     id: 1,
     username: 'test',
     password: 'test',
     email: 'test@example.com'
-  }
+  };
 
-  jwt.sign({user},'secretkey', {expiresIn:86400},(err, token) => {
+  jwt.sign({ user }, 'secretkey', { expiresIn: 86400 }, (_, token) => {
     res.json({
-      'message': 'Wellcome to API endpoint',
-      'token': token
+      message: 'Wellcome to API endpoint',
+      token: token
     });
   });
 });
@@ -34,9 +33,9 @@ router.get('/', (req, res) => {
  *
  *
  */
-router.post('/create',verifyToken, (req, res) => {
+router.post('/create', verifyToken, (req, res) => {
   const result = verifyUser(req);
-  if(result.sucess){
+  if (result.sucess) {
     res.json(result);
   } else {
     // Error Handling
@@ -44,15 +43,14 @@ router.post('/create',verifyToken, (req, res) => {
   }
 });
 
-
 /*
  * Endpoint for Update
  *
  *
  */
-router.put('/update',verifyToken, (req, res) => {
+router.put('/update', verifyToken, (req, res) => {
   const result = verifyUser(req);
-  if(result.sucess){
+  if (result.sucess) {
     res.json(result);
   } else {
     // Error Handling
@@ -65,9 +63,9 @@ router.put('/update',verifyToken, (req, res) => {
  *
  *
  */
-router.delete('/delete',verifyToken, (req, res) => {
+router.delete('/delete', verifyToken, (req, res) => {
   const result = verifyUser(req);
-  if(result.sucess){
+  if (result.sucess) {
     res.json(result);
   } else {
     // Error Handling
@@ -75,17 +73,17 @@ router.delete('/delete',verifyToken, (req, res) => {
   }
 });
 
-router.post('/create',verifyToken, (req, res) => {
-    jwt.verify(req.token, 'secretkey', (err, authData) =>{
-        if(err){
-            res.sendStatus(403);
-        } else {
-            res.json({
-                message: 'Created post',
-                authData
-            });
-        }
-    });
+router.post('/create', verifyToken, (req, res) => {
+  jwt.verify(req.body.token, 'secretkey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        message: 'Created post',
+        authData
+      });
+    }
+  });
 });
 
-module.exports = router;
+export default router;

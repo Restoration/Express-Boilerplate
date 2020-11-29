@@ -1,5 +1,5 @@
-import { Article } from "../../domain/article";
+import { Article } from '../../domain/article';
 
 export interface ArticleUseCase {
-  fetchArticles(): Promise<Article[]>;
+  fetchArticles: () => Promise<Article[]>
 }

@@ -1,10 +1,10 @@
 export default interface ArticleDriver {
-    findAll(): Promise<ArticleJson[]>;
+  findAll: () => Promise<ArticleJson[]>
 }
 
-export type ArticleJson = {
-  id: number;
-  title: string;
-  userId: number;
-  body: string;
-};
+export interface ArticleJson {
+  id: number
+  title: string
+  userId: number
+  body: string
+}

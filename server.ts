@@ -1,29 +1,20 @@
-const express = require('express');
-const createError = require('http-errors');
-const helmet = require('helmet')
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const expressLayouts = require('express-ejs-layouts');
+import express  from 'express';
+import createError  from 'http-errors';
+import helmet  from 'helmet';
+import cookieParser  from 'cookie-parser';
+import logger  from 'morgan';
+import apiRouter  from './router/api';
+import mailRouter  from './router/mail';
+
 const PORT = 5000;
-const indexRouter = require('./router/index');
-const apiRouter = require('./router/api');
-const mailRouter = require('./router/mail');
 
 const app = express();
 app.use(helmet());
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.set('view options', { layout:'layout.ejs' });
 
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressLayouts);
 
-app.use('/',indexRouter);
 app.use('/api', apiRouter);
 app.use('/mail', mailRouter);
 
@@ -47,7 +38,9 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: 'error'
+  });
 });
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))

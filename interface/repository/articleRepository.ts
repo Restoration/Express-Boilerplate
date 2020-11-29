@@ -1,5 +1,5 @@
-import { Article } from "../../domain/article";
+import { Article } from '../../domain/article';
 
 export default interface ArticleRepository {
-  findAll(): Promise<Article[]>;
+  findAll: () => Promise<Article[]>
 }

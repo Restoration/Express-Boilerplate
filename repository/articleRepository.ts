@@ -1,7 +1,6 @@
-import ArticleRepository from "../interface/repository/articleRepository";
-import ArticleDriver from "../interface/driver/articleDriver";
-import { Article } from "../domain/article";
-
+import ArticleRepository from '../interface/repository/articleRepository';
+import ArticleDriver from '../interface/driver/articleDriver';
+import { Article } from '../domain/article';
 
 export default class ArticleRepositoryImpl implements ArticleRepository {
   private readonly ArticleDriver: ArticleDriver;
@@ -18,7 +17,7 @@ export default class ArticleRepositoryImpl implements ArticleRepository {
           articleEntity.id,
           articleEntity.title,
           articleEntity.userId,
-          articleEntity.body,
+          articleEntity.body
         )
     );
   }
