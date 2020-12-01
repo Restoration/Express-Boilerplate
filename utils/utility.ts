@@ -1,14 +1,20 @@
 import jwt from 'jsonwebtoken';
-import { LocalStorage } from 'node-localstorage';
 
-const verifyUser = function(req) {
+interface VerifyUserResponse {
+  success: boolean;
+  message: string;
+  authData?: any;
+  err?: any;
+}
+
+export const verifyUser = (req): VerifyUserResponse => {
   // You need getting data from database
   const username = 'test';
   const password = 'test';
   const mockedUsername = 'test';// req.body.username
   const mockedPassword = 'test';// req.body.password
   if (username === mockedUsername && password === mockedPassword) {
-    const result = jwt.verify(req.token, 'secretkey', (err, authData) => {
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
       if (err) {
         return {
           success: false,
@@ -18,11 +24,11 @@ const verifyUser = function(req) {
       } else {
         return {
           success: true,
+          message: 'success',
           authData
         };
       }
     });
-    return result;
   } else {
     return {
       success: false,
@@ -30,20 +36,8 @@ const verifyUser = function(req) {
     };
   }
 };
-// Store token to local storage
-export const storeTokenLS = function(token) {
-  if (typeof localStorage === 'undefined' || localStorage === null) {
-    localStorage.LocalStorage = new LocalStorage('./scratch');
-  }
-  localStorage.setItem('token', token);
-};
-// Delete token to local storage
-export const deleteTokenLS = function() {
-  localStorage.removeItem('token');
-};
-
 export function isEmpty(obj) {
   return !Object.keys(obj).length;
 }
 
-module.exports = { verifyUser, storeTokenLS, deleteTokenLS, isEmpty };
+module.exports = { verifyUser, isEmpty };

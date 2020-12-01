@@ -1,31 +1,19 @@
 # Express BoilerPlate
 
 A Boilerplate for Express.js. It has basicly endpoint to CRUD and authentication with JSON Web Token.
-You can implement RESTful API to easy.
+You can use a RESTful API to easy. This boilerplate made by clean archtecture.
 
-- RESTful API
-- Mailer
-- Auth
-- GraphQL
+- RESTful API for CRUD on PostgreSQL and MongoDB
+- Authentication with JWT and Redis
 
-## Install
-Setting for .env
+### Install & build server
 ```
-$ cd app
 $ cp .env.sample .env
-```
-
-### Use Docker
-```
-$ cd app
-$ sh setup.sh
-```
-
-### Use npm
-```
-$ cd app
-$ npm i
-$ node app.js
+$ cd infrastructure/docker
+$ docker-compose up -d
+$ cd ../../
+$ yarn add
+$ yarn start:dev
 ```
 
 You already install, please access to `http://localhost:5000` or `http://localhost:5000/api` on your browser then, if you wanna api request, use developer tool.
@@ -33,7 +21,7 @@ In my opnion, I'll recommend using [postman](https://www.getpostman.com/).
 In addition, it has GraphQL endpoint, you can access playground at `http://localhost:5000/graphql`.
 
 ## Requirement
-Docker or Node.js
+Docker
 
 ## LICESE
 [MIT](https://github.com/Restoration/Express-Boilerplate/blob/master/LICENSE)

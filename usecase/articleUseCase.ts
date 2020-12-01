@@ -1,6 +1,6 @@
-import { Article } from '../domain/article';
-import { ArticleUseCase } from '../interface/useCase/articleUseCase';
-import ArticleRepository from '../interface/repository/articleRepository';
+import { Article } from '../entity/Article';
+import { ArticleUseCase } from '../interface/usecase/ArticleUseCase';
+import ArticleRepository from '../interface/repository/ArticleRepository';
 
 export default class ArticleUseCaseImpl implements ArticleUseCase {
   readonly articleRepository: ArticleRepository;

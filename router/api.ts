@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
  */
 router.post('/create', verifyToken, (req, res) => {
   const result = verifyUser(req);
-  if (result.sucess) {
+  if (result.success) {
     res.json(result);
   } else {
     // Error Handling
@@ -50,7 +50,7 @@ router.post('/create', verifyToken, (req, res) => {
  */
 router.put('/update', verifyToken, (req, res) => {
   const result = verifyUser(req);
-  if (result.sucess) {
+  if (result.success) {
     res.json(result);
   } else {
     // Error Handling
@@ -65,7 +65,7 @@ router.put('/update', verifyToken, (req, res) => {
  */
 router.delete('/delete', verifyToken, (req, res) => {
   const result = verifyUser(req);
-  if (result.sucess) {
+  if (result.success) {
     res.json(result);
   } else {
     // Error Handling

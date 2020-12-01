@@ -32,6 +32,8 @@ module.exports = {
       '@typescript-eslint/promise-function-async': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
       '@typescript-eslint/return-await': 'off',
+      '@typescript-eslint/member-delimiter-style': 'off',
+      '@typescript-eslint/no-misused-promises': 'off'
     },
   };
   

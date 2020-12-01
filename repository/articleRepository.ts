@@ -1,24 +1,18 @@
-import ArticleRepository from '../interface/repository/articleRepository';
-import ArticleDriver from '../interface/driver/articleDriver';
-import { Article } from '../domain/article';
+import ArticleRepository from '../interface/repository/ArticleRepository';
+import PSQLDriverImpl from '../interface/driver/PSQLDriver';
+import { Article } from '../entity/article';
+import { EntityRepository } from 'typeorm';
 
+@EntityRepository(Article)
 export default class ArticleRepositoryImpl implements ArticleRepository {
-  private readonly ArticleDriver: ArticleDriver;
+  private readonly psqlDriver: PSQLDriverImpl;
 
-  constructor(articleDriver: ArticleDriver) {
-    this.ArticleDriver = articleDriver;
+  constructor(psqlDriver: PSQLDriverImpl) {
+    this.psqlDriver = psqlDriver;
   }
 
   async findAll(): Promise<Article[]> {
-    const res = await this.ArticleDriver.findAll();
-    return res.map(
-      articleEntity =>
-        new Article(
-          articleEntity.id,
-          articleEntity.title,
-          articleEntity.userId,
-          articleEntity.body
-        )
-    );
+    await this.psqlDriver.getConnection();
+    return [] as Article[];
   }
 }

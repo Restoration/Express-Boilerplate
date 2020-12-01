@@ -4,7 +4,7 @@ import helmet  from 'helmet';
 import cookieParser  from 'cookie-parser';
 import logger  from 'morgan';
 import apiRouter  from './router/api';
-import mailRouter  from './router/mail';
+import articleRouter  from './router/article';
 
 const PORT = 5000;
 
@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api', apiRouter);
-app.use('/mail', mailRouter);
+app.use('/article', articleRouter);
 
 
 const root = {
