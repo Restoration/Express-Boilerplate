@@ -5,6 +5,8 @@ import cookieParser  from 'cookie-parser';
 import logger  from 'morgan';
 import apiRouter  from './router/api';
 import articleRouter  from './router/article';
+import taskRouter  from './router/task';
+
 
 const PORT = 5000;
 
@@ -17,13 +19,8 @@ app.use(cookieParser());
 
 app.use('/api', apiRouter);
 app.use('/article', articleRouter);
+app.use('/task', taskRouter);
 
-
-const root = {
-  hello: () => {
-    return 'Hello world!';
-  },
-};
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

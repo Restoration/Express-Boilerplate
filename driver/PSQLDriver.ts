@@ -1,8 +1,11 @@
-import PSQLDriver from '../interface/driver/PSQLDriver';
 import { createConnection } from 'typeorm';
 import dotenv from 'dotenv';
 
-export default class PSQLDriverImpl implements PSQLDriver {
+export interface IPSQLDriver {
+  getConnection: () => void;
+}
+
+export default class PSQLDriver implements IPSQLDriver {
   private readonly connection: any;
 
   constructor() {

@@ -1,8 +1,11 @@
 import { Article } from '../entity/Article';
-import { ArticleUseCase } from '../interface/usecase/ArticleUseCase';
-import ArticleRepository from '../interface/repository/ArticleRepository';
+import ArticleRepository from '../repository/ArticleRepository';
 
-export default class ArticleUseCaseImpl implements ArticleUseCase {
+export interface IArticleUseCase {
+  fetchArticles: () => Promise<Article[]>
+}
+
+export default class ArticleUseCase implements IArticleUseCase {
   readonly articleRepository: ArticleRepository;
 
   constructor(repository: ArticleRepository) {

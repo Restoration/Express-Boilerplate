@@ -1,13 +1,16 @@
-import ArticleRepository from '../interface/repository/ArticleRepository';
-import PSQLDriverImpl from '../interface/driver/PSQLDriver';
+import PSQLDriver from '../driver/PSQLDriver';
 import { Article } from '../entity/article';
 import { EntityRepository } from 'typeorm';
 
-@EntityRepository(Article)
-export default class ArticleRepositoryImpl implements ArticleRepository {
-  private readonly psqlDriver: PSQLDriverImpl;
+export interface IArticleRepository {
+  findAll: () => Promise<Article[]>
+}
 
-  constructor(psqlDriver: PSQLDriverImpl) {
+@EntityRepository(Article)
+export default class ArticleRepository implements IArticleRepository {
+  private readonly psqlDriver: PSQLDriver;
+
+  constructor(psqlDriver: PSQLDriver) {
     this.psqlDriver = psqlDriver;
   }
 

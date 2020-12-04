@@ -28,3 +28,7 @@ coverage
 benchmarks/graphs
 
 .env
+
+infrastructure/mongo/*
+infrastructure/postgresql/data/*
+infrastructure/redis/*

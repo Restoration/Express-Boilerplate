@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ../../:/app
-    image: "node:10.15.2-alpine"
+      - ../../:/express-app
+    image: "node:14.15.1-alpine"
     ports:
       - "5000:5000"
     depends_on:
@@ -21,7 +21,7 @@ services:
         # 永続化するときにマウントするdir
         - ../postgresql/data:/var/lib/pgsql
     ports:
-      - 5433:5432
+      - 5499:5499
     environment:
       TZ: Asia/Tokyo
       POSTGRES_USER: root

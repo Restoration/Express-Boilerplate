@@ -1,19 +1,19 @@
-import PSQLDriver from '../interface/driver/PSQLDriver';
-import ArticleRepositoryImpl from '../repository/ArticleRepository';
-import ArticleUseCaseImpl from '../usecase/ArticleUseCase';
-import ArticleRepository from '../interface/repository/ArticleRepository';
-import ArticleController from '../interface/controller/ArticleController';
+import PSQLDriver from '../driver/PSQLDriver';
+import ArticleRepository from '../repository/ArticleRepository';
+import ArticleUseCase, { IArticleUseCase } from '../usecase/ArticleUseCase';
 import { Article } from '../entity/article';
 
-export default class ArticleControllerImpl implements ArticleController {
-  private readonly articleRepository: ArticleRepository;
+export interface IArticleController {
+  fetchAll: () => Promise<Article[]>
+}
+export default class ArticleController implements IArticleController {
+  private readonly useCase: IArticleUseCase;
 
   constructor(driver: PSQLDriver) {
-    this.articleRepository = new ArticleRepositoryImpl(driver);
+    this.useCase = new ArticleUseCase(new ArticleRepository(driver));
   }
 
   async fetchAll(): Promise<Article[]> {
-    const useCase = new ArticleUseCaseImpl((this.articleRepository));
-    return await useCase.fetchArticles();
+    return await this.useCase.fetchArticles();
   };
 };

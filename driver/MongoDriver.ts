@@ -1,9 +1,16 @@
-import MongoDriver from '../interface/driver/MongoDriver';
 import mongo from 'mongodb';
 import dotenv from 'dotenv';
 const MongoClient = mongo.MongoClient;
 
-export default class MongoDriverImpl implements MongoDriver {
+export interface IMongoDriver {
+  connect: () => void;
+  getData: (table: string) => void;
+  insertData: (table: string, obj: object) => void;
+  updateData: (table: string, query: any, values: any) => void;
+  deleteData: (table: string, query: any) => void;
+}
+
+export default class MongoDriver implements IMongoDriver {
   private readonly url: string;
   private readonly dataBase: string;
 

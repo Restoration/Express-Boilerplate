@@ -1,9 +1,9 @@
-import ArticleControllerImpl from '../controller/ArticleController';
-import PSQLDriverImpl from '../driver/PSQLDriver';
+import ArticleController from '../controller/ArticleController';
+import PSQLDriver from '../driver/PSQLDriver';
 import express from 'express';
 
-const driver = new PSQLDriverImpl();
-const articleController = new ArticleControllerImpl(driver);
+const driver = new PSQLDriver();
+const articleController = new ArticleController(driver);
 const router = express.Router();
 
 router.get('/', async (req: express.Request, res: express.Response) => {
